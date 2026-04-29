@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Naffisat Salaudeen | Public Health Data Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy:    #0d1b2a;
+      --teal:    #1a6b6b;
+      --teal-lt: #23948f;
+      --cream:   #f7f3ee;
+      --sand:    #e8e0d5;
+      --text:    #1e1e1e;
+      --muted:   #5a6472;
+      --accent:  #c9784b;
+      --card-bg: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5vw;
+      background: rgba(13,27,42,0.97);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 600; color: var(--cream);
+      letter-spacing: 0.04em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(247,243,238,0.75); text-decoration: none;
+      font-size: 0.82rem; font-weight: 400; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal-lt); }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 5vw 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-circle {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,107,107,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-bg-circle:nth-child(1) { width: 600px; height: 600px; top: -100px; right: -80px; }
+    .hero-bg-circle:nth-child(2) { width: 400px; height: 400px; bottom: -80px; left: 5%; }
+
+    .hero-tag {
+      font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--teal-lt); font-weight: 500; margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .hero-tag::before {
+      content: ''; display: block; width: 36px; height: 1px; background: var(--teal-lt);
+    }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 700; line-height: 1.0;
+      color: var(--cream);
+      margin-bottom: 1.2rem;
+    }
+    .hero-name em {
+      font-style: italic; color: var(--teal-lt); font-weight: 400;
+    }
+    .hero-subtitle {
+      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+      color: rgba(247,243,238,0.65);
+      max-width: 560px; font-weight: 300;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-pills {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.8rem;
+    }
+    .pill {
+      padding: 0.35rem 0.95rem;
+      border: 1px solid rgba(26,107,107,0.5);
+      border-radius: 100px;
+      font-size: 0.78rem; color: var(--teal-lt);
+      letter-spacing: 0.05em; font-weight: 400;
+      background: rgba(26,107,107,0.08);
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.8rem;
+      border-radius: 4px;
+      font-size: 0.84rem; font-weight: 500;
+      letter-spacing: 0.05em; text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--teal); color: #fff;
+    }
+    .btn-primary:hover { background: var(--teal-lt); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(247,243,238,0.3);
+      color: var(--cream);
+    }
+    .btn-outline:hover {
+      border-color: var(--teal-lt); color: var(--teal-lt);
+      transform: translateY(-2px);
+    }
+
+    /* ─── SECTION SCAFFOLDING ─── */
+    section { padding: 6rem 5vw; }
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--teal); font-weight: 500; margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; color: var(--navy);
+      margin-bottom: 1.5rem; line-height: 1.15;
+    }
+    .section-divider {
+      width: 48px; height: 3px;
+      background: var(--accent);
+      margin-bottom: 3rem;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: #fff;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted); font-size: 1rem;
+      line-height: 1.9; margin-bottom: 1.2rem;
+    }
+    .about-text p strong {
+      color: var(--text); font-weight: 500;
+    }
+    .about-text .quote-pull {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem; font-style: italic;
+      color: var(--teal); line-height: 1.5;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.2rem;
+      margin: 1.8rem 0;
+    }
+    .about-stats {
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+    .stat-card {
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border-left: 3px solid var(--teal);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem; font-weight: 700;
+      color: var(--navy); line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .stat-label {
+      font-size: 0.82rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+
+    /* ─── SKILLS ─── */
+    #skills {
+      background: var(--navy);
+    }
+    #skills .section-title { color: var(--cream); }
+    #skills .section-label { color: var(--teal-lt); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 1.6rem 1.4rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .skill-card:hover {
+      border-color: var(--teal-lt);
+      transform: translateY(-4px);
+    }
+    .skill-icon {
+      font-size: 1.6rem; margin-bottom: 0.9rem;
+    }
+    .skill-name {
+      font-weight: 500; color: var(--cream); font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+    .skill-desc {
+      font-size: 0.78rem; color: rgba(247,243,238,0.45);
+      line-height: 1.6;
+    }
+
+    /* ─── PROJECTS ─── */
+    #projects { background: var(--cream); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid var(--sand);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(13,27,42,0.1);
+    }
+    .project-card.featured {
+      border-top: 3px solid var(--accent);
+    }
+    .project-card.featured::before {
+      content: 'FEATURED';
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      font-size: 0.65rem; letter-spacing: 0.15em;
+      color: var(--accent); font-weight: 600;
+    }
+    .project-card.coming-soon {
+      border-style: dashed;
+      opacity: 0.85;
+    }
+    .project-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .badge-live   { background: #e8f5e9; color: #2e7d32; }
+    .badge-soon   { background: #fff8e1; color: #f57f17; }
+    .badge-dot    { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    .project-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 0.7rem; line-height: 1.25;
+    }
+    .project-desc {
+      font-size: 0.88rem; color: var(--muted);
+      line-height: 1.75; margin-bottom: 1.4rem;
+    }
+    .project-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      margin-bottom: 1.4rem;
+    }
+    .tag {
+      background: var(--cream); color: var(--muted);
+      font-size: 0.7rem; padding: 0.2rem 0.65rem;
+      border-radius: 4px; border: 1px solid var(--sand);
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--teal); text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: gap 0.2s, color 0.2s;
+    }
+    .project-link:hover { color: var(--teal-lt); gap: 0.7rem; }
+    .project-link-disabled {
+      font-size: 0.82rem; color: var(--muted);
+      display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--navy);
+      text-align: center;
+    }
+    #contact .section-title { color: var(--cream); }
+    #contact .section-label { color: var(--teal-lt); }
+    #contact .section-divider { margin: 0 auto 2rem; }
+    .contact-tagline {
+      color: rgba(247,243,238,0.6);
+      font-size: 1rem; max-width: 500px;
+      margin: 0 auto 3rem; font-weight: 300; line-height: 1.8;
+    }
+    .contact-links {
+      display: flex; justify-content: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.8rem 1.6rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      color: var(--cream); text-decoration: none;
+      font-size: 0.88rem; font-weight: 400;
+      transition: all 0.25s;
+    }
+    .contact-link:hover {
+      background: rgba(26,107,107,0.25);
+      border-color: var(--teal-lt); color: var(--teal-lt);
+      transform: translateY(-2px);
+    }
+    .contact-link svg { width: 18px; height: 18px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #07111c;
+      text-align: center;
+      padding: 1.8rem 5vw;
+      color: rgba(247,243,238,0.3);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .nav-links { display: none; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">NS</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle"></div>
+    <p class="hero-tag">Public Health Data Analyst · Canada</p>
+    <h1 class="hero-name">Naffisat<br/><em>Salaudeen</em></h1>
+    <p class="hero-subtitle">
+      I use epidemiology, biostatistics, and data analysis to understand
+      population health challenges and support evidence-based decisions
+      in public health practice across Canada.
+    </p>
+    <div class="hero-pills">
+      <span class="pill">Epidemiology</span>
+      <span class="pill">Biostatistics</span>
+      <span class="pill">Program Evaluation</span>
+      <span class="pill">Infectious Disease</span>
+      <span class="pill">Python · SQL · Excel</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">View Projects</a>
+      <a class="btn btn-outline" href="#contact">Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">From Clinical <br/>Eyes to Population <em style="font-style:italic; color:var(--teal)">Insight</em></h2>
+        <div class="section-divider"></div>
+        <p class="quote-pull">
+          "From examining individual eyes to examining population health. I realized the problems my patients brought were not just medical. They were systemic."
+        </p>
+        <p>
+          I worked as a <strong>registered optometrist for over 3 years</strong>. Seeing patients every day made it clear that their health problems were bigger than what I could address in a clinic. They were shaped by social conditions, policy gaps, and systemic issues at the community level.
+        </p>
+        <p>
+          That experience is what pushed me toward public health. I now apply <strong>epidemiological methods, biostatistics, and data analysis</strong> to study those bigger issues and produce findings that can support public health decisions and policy across Canada.
+        </p>
+        <p>
+          My work covers <strong>infectious disease surveillance, chronic disease trends, vaccination coverage, program evaluation, and community-based research</strong>, with a focus on making sure the analysis is useful and relevant to real public health decisions.
+        </p>
+      </div>
+      <div class="about-stats fade-up" style="transition-delay:0.15s">
+        <div style="display:flex; justify-content:center; margin-bottom:1.5rem;">
+          <img
+            src="photo.jpg"
+            alt="Naffisat Salaudeen"
+            style="
+              width: 160px;
+              height: 160px;
+              border-radius: 50%;
+              object-fit: cover;
+              object-position: center top;
+              border: 4px solid var(--teal);
+              box-shadow: 0 8px 30px rgba(13,27,42,0.15);
+            "
+          />
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Years Clinical Experience as a Registered Optometrist</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="font-size:1.1rem; line-height:1.6; padding-top:0.3rem;">Python · SQL · Excel · R · Tableau · Power BI</div>
+          <div class="stat-label" style="margin-top:0.5rem;">Technical Skills</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="font-size:0.9rem; line-height:1.8; padding-top:0.3rem;">Problem Solving · Critical Thinking · Systems Thinking · Knowledge Translation · Equity Frameworks · Research Communication · Translating Data for Non-Technical Audiences · Working Across Clinical and Public Health Settings</div>
+          <div class="stat-label" style="margin-top:0.5rem;">Professional Strengths</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="font-size:1rem; line-height:1.7; padding-top:0.3rem;">Infectious Disease · Chronic Disease · Quality Improvement · Program Evaluation · Health Equity · Socio-economic Determinants</div>
+          <div class="stat-label" style="margin-top:0.5rem;">Areas of Focus</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">Technical Toolkit</p>
+    <h2 class="section-title" style="color:var(--cream)">Skills &amp; Expertise</h2>
+    <div class="section-divider" style="margin-bottom:3rem"></div>
+    <div class="skills-grid">
+      <div class="skill-card fade-up">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-name">Python</div>
+        <div class="skill-desc">Data wrangling, statistical modelling, machine learning (scikit-learn, pandas, matplotlib)</div>
+      </div>
+      <div class="skill-card fade-up" style="transition-delay:0.05s">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-name">SQL</div>
+        <div class="skill-desc">Complex queries, administrative health data, large dataset analysis</div>
+      </div>
+      <div class="skill-card fade-up" style="transition-delay:0.10s">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Excel</div>
+        <div class="skill-desc">Advanced analysis, pivot tables, workforce and compensation modelling, outlier detection</div>
+      </div>
+      <div class="skill-card fade-up" style="transition-delay:0.13s">
+        <div class="skill-icon">📈</div>
+        <div class="skill-name">R</div>
+        <div class="skill-desc">Statistical analysis, data visualization, epidemiological modelling</div>
+      </div>
+      <div class="skill-card fade-up" style="transition-delay:0.16s">
+        <div class="skill-icon">🖥️</div>
+        <div class="skill-name">Tableau / Power BI</div>
+        <div class="skill-desc">Interactive dashboards, health data visualization, communicating findings to non-technical audiences</div>
+      </div>
+      <div class="skill-card fade-up" style="transition-delay:0.20s">
+        <div class="skill-icon">🔬</div>
+        <div class="skill-name">Epidemiology</div>
+        <div class="skill-desc">Infectious and chronic disease surveillance, study design, exposure-outcome analysis</div>
+      </div>
+      <div class="skill-card fade-up" style="transition-delay:0.25s">
+        <div class="skill-icon">📐</div>
+        <div class="skill-name">Biostatistics</div>
+        <div class="skill-desc">Regression, cross-validation, statistical inference, model performance evaluation</div>
+      </div>
+      <div class="skill-card fade-up" style="transition-delay:0.30s">
+        <div class="skill-icon">📋</div>
+        <div class="skill-name">Program Evaluation</div>
+        <div class="skill-desc">Logic models, theory of change, indicator development, systems thinking, evaluation plans</div>
+      </div>
+      <div class="skill-card fade-up" style="transition-delay:0.35s">
+        <div class="skill-icon">⚙️</div>
+        <div class="skill-name">Quality Improvement</div>
+        <div class="skill-desc">Identifying gaps in health service delivery, using data to support improvement initiatives</div>
+      </div>
+      <div class="skill-card fade-up" style="transition-delay:0.40s">
+        <div class="skill-icon">🌍</div>
+        <div class="skill-name">Public Health Research</div>
+        <div class="skill-desc">Socio-economic determinants, equity frameworks, community-based research, policy analysis</div>
+      </div>
+      <div class="skill-card fade-up" style="transition-delay:0.45s">
+        <div class="skill-icon">🩺</div>
+        <div class="skill-name">Clinical Background</div>
+        <div class="skill-desc">3+ years in optometry, which gives me a patient-centred perspective when working with health data</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Portfolio</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-divider"></div>
+    <div class="projects-grid">
+
+      <!-- FEATURED: Stroke Risk Prediction -->
+      <div class="project-card featured fade-up">
+        <span class="project-badge badge-live"><span class="badge-dot"></span>Live</span>
+        <h3 class="project-title">Stroke Risk Prediction Model</h3>
+        <p class="project-desc">
+          This project looked at 11 demographic and clinical variables including age, hypertension, BMI,
+          average glucose level, smoking status, and work type to identify stroke risk patterns at the
+          population level. Some of the findings were interesting: stroke occurrence was highest in the
+          60 to 80 age group, more common among people who had never smoked, and higher in private-sector
+          workers. Two predictive models were built and compared (train-test split and cross-validation).
+          Cross-validation gave an accuracy of 62.5% on imputed data and was the more stable method,
+          which is useful to know when working with health data that has missing values.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Cross-validation</span>
+          <span class="tag">Epidemiology</span>
+          <span class="tag">Missing Data</span>
+          <span class="tag">Risk Factors</span>
+        </div>
+        <a class="project-link" href="https://github.com/Nafeesah97/My_Data_Science_Journey/tree/main/stroke_prediction_project" target="_blank" rel="noopener">
+          View on GitHub →
+        </a>
+      </div>
+
+      <!-- COMING SOON: Infectious Disease -->
+      <div class="project-card coming-soon fade-up" style="transition-delay:0.08s">
+        <span class="project-badge badge-soon"><span class="badge-dot"></span>In Progress</span>
+        <h3 class="project-title">Infectious Disease Trends Analysis</h3>
+        <p class="project-desc">
+          Exploratory analysis of infectious disease surveillance data in the Canadian context,
+          looking at trends, seasonality, and population-level risk factors.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Epidemiology</span>
+          <span class="tag">Python</span>
+          <span class="tag">Surveillance Data</span>
+          <span class="tag">Canada</span>
+        </div>
+        <span class="project-link-disabled">🔧 Coming May 2026</span>
+      </div>
+
+      <!-- COMING SOON: Vaccination Coverage -->
+      <div class="project-card coming-soon fade-up" style="transition-delay:0.16s">
+        <span class="project-badge badge-soon"><span class="badge-dot"></span>In Progress</span>
+        <h3 class="project-title">Vaccination Coverage Analysis</h3>
+        <p class="project-desc">
+          Looking at vaccination coverage gaps across Canadian populations, with a focus
+          on socio-economic determinants, geographic disparities, and health equity.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Public Health</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Health Equity</span>
+          <span class="tag">Canada</span>
+        </div>
+        <span class="project-link-disabled">🔧 Coming June 2026</span>
+      </div>
+
+      <!-- COMING SOON: Chronic Disease -->
+      <div class="project-card coming-soon fade-up" style="transition-delay:0.24s">
+        <span class="project-badge badge-soon"><span class="badge-dot"></span>In Progress</span>
+        <h3 class="project-title">Chronic Disease Trends Study</h3>
+        <p class="project-desc">
+          Analysis of chronic disease burden in Canada over time, looking at trends,
+          risk factor associations, and what the findings mean for health system planning.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Biostatistics</span>
+          <span class="tag">Excel</span>
+          <span class="tag">Chronic Disease</span>
+          <span class="tag">Policy Relevance</span>
+        </div>
+        <span class="project-link-disabled">🔧 Coming June 2026</span>
+      </div>
+
+      <!-- COMING SOON: Program Evaluation -->
+      <div class="project-card coming-soon fade-up" style="transition-delay:0.32s">
+        <span class="project-badge badge-soon"><span class="badge-dot"></span>In Progress</span>
+        <h3 class="project-title">Program Evaluation Project</h3>
+        <p class="project-desc">
+          Evaluation of a public health program using logic models, theory of
+          change frameworks, indicator development, systems thinking, and practical recommendations.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Program Evaluation</span>
+          <span class="tag">Logic Model</span>
+          <span class="tag">Systems Thinking</span>
+          <span class="tag">Policy</span>
+        </div>
+        <span class="project-link-disabled">🔧 Coming July 2026</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Let's Connect</h2>
+    <div class="section-divider"></div>
+    <p class="contact-tagline">
+      I am always open to collaborating with researchers, public health professionals, and organizations
+      working on meaningful health challenges. If you are working on something that data and public health
+      thinking can help with, I would love to be part of that conversation.
+    </p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:naffisatsalaudeen@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        naffisatsalaudeen@gmail.com
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/naffisat-salaudeen-74ba60240" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a class="contact-link" href="https://github.com/Nafeesah97/My_Data_Science_Journey" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Naffisat Salaudeen · Built for GitHub Pages · Portfolio updated regularly as projects complete</p>
+  </footer>
+
+  <script>
+    // Scroll-triggered fade-up animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
