@@ -345,7 +345,47 @@
       letter-spacing: 0.05em;
     }
 
-    /* ─── ANIMATIONS ─── */
+    /* ─── HERO PHOTO ─── */
+    .hero-photo {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      object-fit: cover; object-position: center top;
+      border: 3px solid var(--teal-lt);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      margin-bottom: 1.4rem;
+      display: block;
+    }
+
+    /* ─── PROJECT CARD DETAILS ─── */
+    .project-section-label {
+      font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+      font-weight: 600; margin-bottom: 0.35rem; margin-top: 1rem;
+    }
+    .project-section-label.q  { color: var(--teal); }
+    .project-section-label.m  { color: #7b5ea7; }
+    .project-section-label.f  { color: var(--accent); }
+    .project-section-label.ph { color: #2e7d32; }
+
+    .project-bullets {
+      list-style: none; padding: 0; margin: 0 0 0.4rem 0;
+    }
+    .project-bullets li {
+      font-size: 0.82rem; color: var(--muted);
+      line-height: 1.65; padding-left: 1rem;
+      position: relative; margin-bottom: 0.2rem;
+    }
+    .project-bullets li::before {
+      content: '→'; position: absolute; left: 0;
+      color: var(--teal); font-size: 0.72rem; top: 0.05rem;
+    }
+    .project-bullets.accent li::before { color: var(--accent); }
+    .project-bullets.green  li::before { color: #2e7d32; }
+    .project-bullets.purple li::before { color: #7b5ea7; }
+
+    .project-divider {
+      height: 1px; background: var(--sand);
+      margin: 0.9rem 0;
+    }
     .fade-up {
       opacity: 0; transform: translateY(30px);
       transition: opacity 0.7s ease, transform 0.7s ease;
@@ -380,11 +420,12 @@
     <div class="hero-bg-circle"></div>
     <div class="hero-bg-circle"></div>
     <p class="hero-tag">Public Health Data Analyst · Canada</p>
+    <img src="photo.png" alt="Naffisat Salaudeen" class="hero-photo" />
     <h1 class="hero-name">Naffisat<br/><em>Salaudeen</em></h1>
     <p class="hero-subtitle">
-      I work at the intersection of data and public health to find patterns
-      in disease, inequity, and population risk and translate those patterns
-      into evidence that supports better health decisions. 
+      I use epidemiology, biostatistics, and data analysis to understand
+      population health challenges and support evidence-based decisions
+      in public health practice across Canada.
     </p>
     <div class="hero-pills">
       <span class="pill">Epidemiology</span>
@@ -479,7 +520,7 @@
       <div class="skill-card fade-up" style="transition-delay:0.13s">
         <div class="skill-icon">🖥️</div>
         <div class="skill-name">Tableau / Power BI</div>
-        <div class="skill-desc">Building interactive dashboards to communicate health data findings to non-technical audiences. Used Power BI in the STBBI Trend Analysis to visualize disease patterns across age groups, sex, and time.</div>
+        <div class="skill-desc">Building interactive dashboards to communicate health data findings to non-technical audiences. Currently applying Power BI in the STBBI Trend Analysis to visualize disease patterns across age groups, sex, and time.</div>
       </div>
       <div class="skill-card fade-up" style="transition-delay:0.16s">
         <div class="skill-icon">🔬</div>
@@ -530,94 +571,211 @@
       <div class="project-card featured fade-up">
         <span class="project-badge badge-live"><span class="badge-dot"></span>Live</span>
         <h3 class="project-title">Stroke Risk Prediction Model</h3>
-        <p class="project-desc">
-          This project looked at 11 demographic and clinical variables including age, hypertension, BMI,
-          average glucose level, smoking status, and work type to identify stroke risk patterns at the
-          population level. Some of the findings were interesting: stroke occurrence was highest in the
-          60 to 80 age group, more common among people who had never smoked, and higher in private-sector
-          workers. Two predictive models were built and compared (train-test split and cross-validation).
-          Cross-validation gave an accuracy of 62.5% on imputed data and was the more stable method,
-          which is useful to know when working with health data that has missing values.
-        </p>
-        <div class="project-tags">
+
+        <p class="project-section-label q">Research Question</p>
+        <ul class="project-bullets">
+          <li>Can demographic and clinical variables predict who is at risk of stroke at the population level?</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label m">What I Did and How</p>
+        <ul class="project-bullets purple">
+          <li>Cleaned and pre-processed a simulated health dataset of 5,000 records using Python (pandas), fixing typos, inconsistent labels, and missing BMI values through mean and median imputation</li>
+          <li>Built and compared two logistic regression models using scikit-learn — train-test split and K-fold cross-validation — to test which method produced more stable results with imbalanced health data</li>
+          <li>Applied Recursive Feature Elimination (RFE) to rank 11 variables and selected the 6 strongest predictors: age, BMI, average glucose level, work type, hypertension, and smoking status</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label f">Key Findings</p>
+        <ul class="project-bullets accent">
+          <li>Stroke occurrence was highest in the 60 to 80 age group, followed by 40 to 60</li>
+          <li>People who had never smoked had more strokes than current or former smokers — challenging common assumptions</li>
+          <li>Private sector workers had the highest stroke occurrence, followed by the self-employed</li>
+          <li>Cross-validation outperformed train-test split with 62.5% accuracy on imputed data versus 50% — showing its advantage when data has missing values</li>
+          <li>Strong positive correlation found between age and marriage status</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label ph">Public Health Relevance</p>
+        <ul class="project-bullets green">
+          <li>Stroke is the third leading cause of death in Canada and a major driver of long-term disability, costing the health system over $3.6 billion annually</li>
+          <li>Identifying which population subgroups carry the highest risk supports targeted prevention programs and more efficient use of health resources</li>
+          <li>Findings suggest that stroke prevention messaging should extend beyond traditionally recognized high-risk groups to include working-age adults in high-demand employment sectors</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label" style="color:var(--muted);">Skills Applied</p>
+        <div class="project-tags" style="margin-top:0.4rem">
           <span class="tag">Python</span>
-          <span class="tag">Machine Learning</span>
+          <span class="tag">Logistic Regression</span>
           <span class="tag">Cross-validation</span>
+          <span class="tag">Feature Selection (RFE)</span>
+          <span class="tag">Missing Data Imputation</span>
+          <span class="tag">scikit-learn</span>
+          <span class="tag">pandas</span>
           <span class="tag">Epidemiology</span>
-          <span class="tag">Missing Data</span>
-          <span class="tag">Risk Factors</span>
         </div>
-        <a class="project-link" href="https://github.com/Nafeesah97/My_Data_Science_Journey/tree/main/stroke_prediction_project" target="_blank" rel="noopener">
+
+        <a class="project-link" href="https://github.com/Nafeesah97/My_Data_Science_Journey/tree/main/stroke_prediction_project" target="_blank" rel="noopener" style="margin-top:1rem; display:inline-flex;">
           View on GitHub →
         </a>
       </div>
 
-      <!-- COMING SOON: Infectious Disease -->
+      <!-- IN PROGRESS: STBBI Trend Analysis -->
       <div class="project-card coming-soon fade-up" style="transition-delay:0.08s">
         <span class="project-badge badge-soon"><span class="badge-dot"></span>In Progress</span>
-        <h3 class="project-title">Infectious Disease Trends Analysis</h3>
-        <p class="project-desc">
-          Exploratory analysis of infectious disease surveillance data in the Canadian context,
-          looking at trends, seasonality, and population-level risk factors.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Epidemiology</span>
+        <h3 class="project-title">STBBI Trend Analysis Among Canadian Youth</h3>
+
+        <p class="project-section-label q">Research Question</p>
+        <ul class="project-bullets">
+          <li>What are the trends and socio-demographic patterns of sexually transmitted and blood-borne infections — chlamydia, gonorrhea, syphilis, and HIV — among Canadians aged 15 to 34 from 2015 to 2023, and how did COVID-19 affect these trends?</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label m">Methods Being Applied</p>
+        <ul class="project-bullets purple">
+          <li>Extracting and cleaning national STBBI surveillance data from PHAC using Python (pandas)</li>
+          <li>Harmonizing age groups across datasets (collapsing 15-19 and 20-24 into 15-24) to enable linkage with socioeconomic data on healthcare access, family income, and housing</li>
+          <li>Conducting ecological correlation analysis linking national STBBI rates to socioeconomic indicators by year, age group, and sex</li>
+          <li>Building an interactive Power BI dashboard to visualize disease trends, pre and post pandemic comparisons, and demographic breakdowns</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label ph">Why This Matters in Canada</p>
+        <ul class="project-bullets green">
+          <li>STBBI rates among Canadian youth have been rising for over a decade — syphilis cases increased by over 300% between 2015 and 2022 nationally</li>
+          <li>The COVID-19 pandemic disrupted sexual health services across Canada, creating gaps in testing, treatment, and reporting that are still being understood</li>
+          <li>Understanding which age groups, sexes, and socioeconomic conditions drive transmission is critical for designing effective provincial sexual health programs</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label" style="color:var(--muted);">Skills Being Applied</p>
+        <div class="project-tags" style="margin-top:0.4rem">
           <span class="tag">Python</span>
-          <span class="tag">Surveillance Data</span>
-          <span class="tag">Canada</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Epidemiology</span>
+          <span class="tag">Ecological Analysis</span>
+          <span class="tag">Data Harmonization</span>
+          <span class="tag">PHAC Surveillance Data</span>
+          <span class="tag">Health Equity</span>
         </div>
-        <span class="project-link-disabled">🔧 Coming May 2026</span>
+
+        <span class="project-link-disabled" style="margin-top:1rem; display:inline-flex;">🔧 In Progress — 2026</span>
       </div>
 
       <!-- COMING SOON: Vaccination Coverage -->
       <div class="project-card coming-soon fade-up" style="transition-delay:0.16s">
-        <span class="project-badge badge-soon"><span class="badge-dot"></span>In Progress</span>
+        <span class="project-badge badge-soon"><span class="badge-dot"></span>Coming Soon</span>
         <h3 class="project-title">Vaccination Coverage Analysis</h3>
-        <p class="project-desc">
-          Looking at vaccination coverage gaps across Canadian populations, with a focus
-          on socio-economic determinants, geographic disparities, and health equity.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Public Health</span>
+
+        <p class="project-section-label q">Research Question</p>
+        <ul class="project-bullets">
+          <li>Where are the vaccination coverage gaps across Canadian populations, and are they driven by geographic location or socio-economic disparities?</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label m">Planned Methods</p>
+        <ul class="project-bullets purple">
+          <li>Analysis of national immunization coverage data from PHAC by province, age group, and vaccine type</li>
+          <li>Linking coverage rates to socio-economic indicators to identify equity gaps</li>
+          <li>SQL for data extraction and aggregation from administrative datasets</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label ph">Why This Matters in Canada</p>
+        <ul class="project-bullets green">
+          <li>Canada has seen measles outbreaks in under-vaccinated communities, highlighting the real-world consequence of coverage gaps</li>
+          <li>Identifying which populations are under-vaccinated and why is essential for closing gaps and strengthening herd immunity at the provincial level</li>
+        </ul>
+
+        <div class="project-tags" style="margin-top:1rem">
           <span class="tag">SQL</span>
+          <span class="tag">Public Health</span>
           <span class="tag">Health Equity</span>
-          <span class="tag">Canada</span>
+          <span class="tag">Immunization</span>
         </div>
-        <span class="project-link-disabled">🔧 Coming June 2026</span>
+        <span class="project-link-disabled" style="margin-top:1rem; display:inline-flex;">🔧 Coming June 2026</span>
       </div>
 
       <!-- COMING SOON: Chronic Disease -->
       <div class="project-card coming-soon fade-up" style="transition-delay:0.24s">
-        <span class="project-badge badge-soon"><span class="badge-dot"></span>In Progress</span>
+        <span class="project-badge badge-soon"><span class="badge-dot"></span>Coming Soon</span>
         <h3 class="project-title">Chronic Disease Trends Study</h3>
-        <p class="project-desc">
-          Analysis of chronic disease burden in Canada over time, looking at trends,
-          risk factor associations, and what the findings mean for health system planning.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Biostatistics</span>
+
+        <p class="project-section-label q">Research Question</p>
+        <ul class="project-bullets">
+          <li>How have chronic disease rates changed in Canada over time, and what risk factors and population groups are driving those trends?</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label m">Planned Methods</p>
+        <ul class="project-bullets purple">
+          <li>Analysis of chronic disease surveillance data using Excel and Python</li>
+          <li>Longitudinal trend analysis examining diabetes, cardiovascular disease, and hypertension over time</li>
+          <li>Correlation with lifestyle and socio-economic risk factors</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label ph">Why This Matters in Canada</p>
+        <ul class="project-bullets green">
+          <li>Chronic diseases account for over 65% of deaths in Canada and are the largest driver of healthcare costs</li>
+          <li>Identifying trends and at-risk groups informs where prevention investment will have the greatest population-level impact</li>
+        </ul>
+
+        <div class="project-tags" style="margin-top:1rem">
+          <span class="tag">Python</span>
           <span class="tag">Excel</span>
+          <span class="tag">Biostatistics</span>
           <span class="tag">Chronic Disease</span>
-          <span class="tag">Policy Relevance</span>
         </div>
-        <span class="project-link-disabled">🔧 Coming June 2026</span>
+        <span class="project-link-disabled" style="margin-top:1rem; display:inline-flex;">🔧 Coming June 2026</span>
       </div>
 
       <!-- COMING SOON: Program Evaluation -->
       <div class="project-card coming-soon fade-up" style="transition-delay:0.32s">
-        <span class="project-badge badge-soon"><span class="badge-dot"></span>In Progress</span>
-        <h3 class="project-title">Program Evaluation Project</h3>
-        <p class="project-desc">
-          Evaluation of a public health program using logic models, theory of
-          change frameworks, indicator development, systems thinking, and practical recommendations.
-        </p>
-        <div class="project-tags">
+        <span class="project-badge badge-soon"><span class="badge-dot"></span>Coming Soon</span>
+        <h3 class="project-title">Public Health Program Evaluation</h3>
+
+        <p class="project-section-label q">Research Question</p>
+        <ul class="project-bullets">
+          <li>Is the program achieving its intended outcomes, and what changes would improve its reach, effectiveness, and equity?</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label m">Planned Methods</p>
+        <ul class="project-bullets purple">
+          <li>Development of an evaluation framework using logic models and theory of change</li>
+          <li>Process, outcome, and impact evaluation using mixed data collection tools</li>
+          <li>Findings translated into actionable recommendations for program improvement</li>
+        </ul>
+
+        <div class="project-divider"></div>
+
+        <p class="project-section-label ph">Why This Matters in Canada</p>
+        <ul class="project-bullets green">
+          <li>Public health programs require evidence of effectiveness to maintain funding and justify scaling — rigorous evaluation is what produces that evidence</li>
+          <li>Equity-focused evaluation identifies who the program is not reaching and why, which is essential for closing health disparities</li>
+        </ul>
+
+        <div class="project-tags" style="margin-top:1rem">
           <span class="tag">Program Evaluation</span>
           <span class="tag">Logic Model</span>
+          <span class="tag">Theory of Change</span>
           <span class="tag">Systems Thinking</span>
-          <span class="tag">Policy</span>
         </div>
-        <span class="project-link-disabled">🔧 Coming July 2026</span>
+        <span class="project-link-disabled" style="margin-top:1rem; display:inline-flex;">🔧 Coming July 2026</span>
       </div>
 
     </div>
